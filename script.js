@@ -11,7 +11,6 @@ const white = document.getElementById("white");
 const btn = document.getElementById("btn");
 const result = document.getElementById("result");
 
-/* ガチャ内容 */
 const gacha = [
   ["次回来店時\n商品券 10,000円",0.05],
   ["次回来店時\n商品券 5,000円",0.1],
@@ -44,7 +43,6 @@ const gacha = [
   ["ランクアップ\nもう1回",10],
 ];
 
-/* ガチャ抽選 */
 function draw(){
   let sum = 0;
   const r = Math.random()*100;
@@ -54,28 +52,26 @@ function draw(){
   }
 }
 
-/* シーン切替 */
 function show(n){
   scenes.forEach(s=>s.classList.remove("show"));
   scenes[n].classList.add("show");
 }
 
-/* ボタン押下 */
 btn.onclick = () => {
-  // 瞬間光る演出
-  btn.classList.add("btn-flash");
-  setTimeout(()=> btn.classList.remove("btn-flash"),500);
 
-  btn.style.display = "none"; // ボタン非表示
+  btn.style.display = "none";
+
   show(1);
   setTimeout(()=>show(2),1800);
   setTimeout(()=>show(3),3500);
+
   setTimeout(()=>flash.classList.add("flash-active"),4200);
   setTimeout(()=>white.classList.add("white-active"),4700);
+
   setTimeout(()=>{
-    white.classList.remove("white-active");
     white.style.opacity = "0";
   },5800);
+
   setTimeout(()=>{
     show(4);
     result.textContent = draw();
