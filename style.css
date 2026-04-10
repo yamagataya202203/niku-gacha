@@ -3,19 +3,17 @@ body{
   background:#000;
   color:#fff;
   font-family:'Noto Serif JP',serif;
-  overflow:hidden; /* ←スクロール防止 */
+  overflow:hidden;
 }
 
-/* ★画面いっぱい */
 .stage{
   position:relative;
   width:100vw;
-  height:100vh; /* ←ここでフル画面 */
+  height:100vh;
   overflow:hidden;
   background:#000;
 }
 
-/* 画像共通 */
 .scene{
   position:absolute;
   top:50%;
@@ -23,8 +21,7 @@ body{
   width:100%;
   height:100%;
   transform:translate(-50%,-50%);
-  object-fit:contain; /* ←見切れ防止 */
-  object-position:center;
+  object-fit:contain;
   opacity:0;
   display:none;
 }
@@ -46,7 +43,7 @@ body{
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  font-size:clamp(20px,4vw,40px); /* ←端末対応 */
+  font-size:clamp(20px,4vw,40px);
   white-space:pre-line;
   text-align:center;
   text-shadow:
@@ -55,7 +52,7 @@ body{
     0 0 40px gold;
 }
 
-/* 光 */
+/* フラッシュ */
 #flash{
   position:absolute;
   top:50%;
@@ -96,29 +93,77 @@ body{
   100%{opacity:1;}
 }
 
-/* ★ボタン（下に配置） */
+/* ★ボタン（金グラデ＋発光） */
 #btn{
   position:absolute;
-  bottom:8vh; /* ←下配置に変更 */
+  bottom:8vh;
   left:50%;
   transform:translateX(-50%);
-  
-  padding:16px 40px;
-  font-size:clamp(18px,4vw,28px);
-  font-weight:900;
-  letter-spacing:2px;
 
-  color:#fff;
+  padding:18px 50px;
   border:none;
-  border-radius:14px;
+  border-radius:16px;
   cursor:pointer;
 
-  background:linear-gradient(145deg,#d4af37,#fff2b0,#b8963c);
+  /* ★金グラデ */
+  background:linear-gradient(
+    145deg,
+    #fff8dc 0%,
+    #ffd700 30%,
+    #c9a227 60%,
+    #b8963c 100%
+  );
 
+  /* ★発光 */
   box-shadow:
-    0 6px 0 #8b6a2b,
-    0 10px 20px rgba(0,0,0,0.7),
-    inset 0 2px 6px rgba(255,255,255,0.7);
+    0 0 10px rgba(255,215,0,0.7),
+    0 0 20px rgba(255,215,0,0.7),
+    0 0 40px rgba(255,215,0,0.9),
+    0 8px 0 #8b6a2b,
+    0 15px 30px rgba(0,0,0,0.9),
+    inset 0 2px 8px rgba(255,255,255,0.9);
 
+  animation: pulse 2s infinite;
   z-index:10;
+}
+
+/* ★文字（そのまま） */
+.gold-text{
+  font-family:'Playfair Display','Noto Serif JP',serif;
+  font-size:clamp(22px,4vw,32px);
+  font-weight:900;
+  letter-spacing:3px;
+
+  color:#000; /* ★ボタンが金なので黒で高級感 */
+  text-shadow:
+    0 1px 2px rgba(255,255,255,0.6);
+}
+
+/* 脈打ち */
+@keyframes pulse{
+  0%{
+    transform:translateX(-50%) scale(1);
+    box-shadow:
+      0 0 10px gold,
+      0 0 20px gold;
+  }
+  50%{
+    transform:translateX(-50%) scale(1.07);
+    box-shadow:
+      0 0 20px gold,
+      0 0 50px gold,
+      0 0 80px rgba(255,215,0,1);
+  }
+  100%{
+    transform:translateX(-50%) scale(1);
+  }
+}
+
+/* タップ */
+#btn:active{
+  transform:translateX(-50%) scale(0.95);
+  box-shadow:
+    0 0 60px #fff,
+    0 0 100px gold,
+    inset 0 0 15px #fff;
 }
